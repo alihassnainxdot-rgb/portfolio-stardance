@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ali — Index of Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #f3efe6;
+    --paper: #ffffff;
+    --ink: #16130f;
+    --muted: #8b8578;
+    --line: #d9d2c2;
+    --red: #ff4422;
+    --green: #1f8f6b;
+    --violet: #6a5cff;
+    --yellow: #f4b400;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+  }
+
+  .topbar{
+    height:56px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    border-bottom:2px solid var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:.04em;
+  }
+  .topbar .left{ display:flex; align-items:center; gap:10px; }
+  .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--red);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; } 50%{ opacity:.35; }
+  }
+  .topbar .mid{ color:var(--muted); }
+  .topbar .right{ color:var(--muted); }
+
+  .layout{
+    display:grid;
+    grid-template-columns:400px 1fr;
+    min-height:calc(100vh - 56px);
+  }
+  @media (max-width: 900px){
+    .layout{ grid-template-columns:1fr; }
+    .stage{ min-height:640px; }
+  }
+
+  .sidebar{
+    border-right:2px solid var(--ink);
+    padding:56px 40px;
+    display:flex;
+    flex-direction:column;
+  }
+  .name{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:54px;
+    line-height:1;
+    letter-spacing:-0.01em;
+  }
+  .roles{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.05em;
+    color:var(--muted);
+    margin-top:18px;
+    line-height:1.7;
+    text-transform:uppercase;
+  }
+  .rule{ height:1px; background:var(--ink); margin:28px 0; }
+  .tagline{
+    font-size:21px;
+    font-weight:600;
+    line-height:1.35;
+    max-width:30ch;
+  }
+  .rule2{ height:1px; background:var(--ink); margin:28px 0 22px; }
+
+  .index-head{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.08em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .index-list{ list-style:none; }
+  .index-list li{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:13px 0;
+    border-bottom:1px dashed var(--line);
+    cursor:pointer;
+    transition:opacity .15s;
+  }
+  .index-list li:hover{ opacity:.6; }
+  .index-list li .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    width:26px;
+  }
+  .index-list li .title{
+    font-weight:600;
+    font-size:15px;
+    flex:1;
+    margin-left:6px;
+  }
+  .index-list li .yr{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .index-list li.active .title{ color:var(--red); }
+  .index-list li.active .num{ color:var(--red); }
+
+  .sidebar-foot{
+    margin-top:auto;
+    padding-top:28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  .stage{
+    position:relative;
+    overflow:hidden;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:60px 60px;
+  }
+  .bigletter{
+    position:absolute;
+    left:24px; bottom:0;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-style:italic;
+    font-size:260px;
+    line-height:.7;
+    color:var(--ink);
+    opacity:.9;
+    pointer-events:none;
+    user-select:none;
+  }
+
+  .card{
+    position:absolute;
+    width:300px;
+    background:var(--paper);
+    border:2px solid var(--ink);
+    box-shadow:10px 10px 0 rgba(22,19,15,.12);
+    transition:transform .5s cubic-bezier(.2,.7,.3,1), box-shadow .3s;
+    cursor:pointer;
+  }
+  .card .badge{
+    position:absolute; top:-14px; left:16px;
+    background:var(--ink); color:var(--cream);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:.06em;
+    padding:4px 10px;
+    z-index:2;
+  }
+  .card .art{ height:190px; position:relative; overflow:hidden; }
+  .card .footer{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 16px;
+    border-top:2px solid var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .card .footer .t{ font-weight:600; font-size:14px; font-family:'Inter',sans-serif; }
+  .card .footer .y{ font-size:12px; color:var(--muted); }
+
+  .card.active{
+    box-shadow:16px 16px 0 rgba(22,19,15,.18);
+    transform:scale(1.05);
+  }
+
+  .pat-check{
+    display:grid; grid-template-columns:repeat(6,1fr); grid-template-rows:repeat(4,1fr);
+    height:100%;
+  }
+  .pat-check div:nth-child(3n){ background:var(--red); }
+  .pat-check div:nth-child(5n){ background:var(--ink); }
+  .pat-check div{ background:var(--cream); border:1px solid var(--line); }
+
+  .pat-bars{
+    height:100%; display:flex; align-items:flex-end; gap:6px;
+    padding:18px; background:var(--cream);
+  }
+  .pat-bars span{
+    flex:1; background:var(--red); border-radius:2px 2px 0 0;
+  }
+
+  .pat-dots{
+    height:100%; background:var(--cream);
+    display:grid; grid-template-columns:repeat(10,1fr); align-content:center; gap:6px;
+    padding:16px;
+  }
+  .pat-dots i{ display:block; width:100%; padding-bottom:100%; border-radius:50%; background:var(--ink); }
+
+  .pat-rings{
+    height:100%; display:flex; align-items:center; justify-content:center;
+    background:var(--cream);
+  }
+  .ring{ position:absolute; border-radius:6px; }
+
+  .pat-half{
+    height:100%; background:
+      repeating-linear-gradient(45deg, var(--ink) 0 2px, transparent 2px 10px),
+      var(--yellow);
+  }
+
+  .pat-mono{
+    height:100%; background:var(--ink); color:var(--cream);
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    padding:14px; overflow:hidden; line-height:1.5;
+  }
+
+  .controls{
+    position:absolute; right:24px; bottom:24px;
+    width:250px;
+    background:var(--paper);
+    border:2px solid var(--ink);
+    box-shadow:8px 8px 0 rgba(22,19,15,.15);
+    padding:18px 20px 20px;
+    z-index:100;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .controls h4{ font-size:12px; letter-spacing:.08em; margin-bottom:16px; }
+  .controls .row{ display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.05em;}
+  input[type=range]{
+    -webkit-appearance:none; width:100%; height:3px; background:var(--line); margin-bottom:18px;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:14px; height:14px; border-radius:50%;
+    background:var(--red); cursor:pointer; margin-top:-5.5px;
+  }
+  .playback{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:8px;}
+  .btnrow{ display:flex; gap:8px; }
+  .btnrow button{
+    flex:1; padding:9px 0; font-family:'IBM Plex Mono', monospace; font-size:12px;
+    border:2px solid var(--ink); background:var(--paper); cursor:pointer; letter-spacing:.05em;
+  }
+  .btnrow button.on{ background:var(--ink); color:var(--cream); }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+    .dot{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="left"><span class="dot"></span> ALI · INDEX OF WORK · 2024–2026</div>
+  <div class="mid" id="filelabel">FILE 01/06 · HELIX VIEW</div>
+  <div class="right">EST. RAWALPINDI</div>
+</div>
+
+<div class="layout">
+
+  <div class="sidebar">
+    <div class="name">Ali</div>
+    <div class="roles">
+      AI Voice Agents / VoxWeb Agency<br>
+      SELF-Educated |Software Engineer | Machiene Learning Engineer 
+    </div>
+    <div class="rule"></div>
+    <div class="tagline">Helping Bussinesses & Myself For Getting More Leads And Profit</div>
+    <div class="rule2"></div>
+    <div class="index-head"><span>Project Index</span><span>06 / 06</span></div>
+    <ul class="index-list" id="indexList"></ul>
+    <div class="sidebar-foot">
+      <span>© Ali</span>
+      <span>Built for Stardance</span>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="bigletter">V</div>
+    <div class="controls">
+      <h4>HELIX CONTROLS</h4>
+      <div class="row"><span>Rotation Speed</span><span id="speedVal">3s</span></div>
+      <input type="range" id="speed" min="1" max="8" value="3">
+      <div class="playback">Playback</div>
+      <div class="btnrow">
+        <button id="playBtn" class="on">Play</button>
+        <button id="pauseBtn">Pause</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const projects = [
+  { n:'01', title:'VoxWeb Agency', year:'2026', pattern:'check', top:60, left:60 },
+  { n:'02', title:'Call Cost Calculator', year:'2026', pattern:'bars', top:140, left:340 },
+  { n:'03', title:'Personal Site', year:'2026', pattern:'dots', top:320, left:150 },
+  { n:'04', title:'Linux Rice Setup', year:'2025', pattern:'mono', top:60, left:600 },
+  { n:'05', title:'Slack Bot', year:'2026', pattern:'rings', top:380, left:470 },
+  { n:'06', title:'Halftone Sprint Log', year:'2025', pattern:'half', top:220, left:20 },
+];
+
+const stage = document.getElementById('stage');
+const indexList = document.getElementById('indexList');
+const fileLabel = document.getElementById('filelabel');
+let active = 0;
+
+function artHTML(pattern){
+  if(pattern==='check'){
+    let cells='';
+    for(let i=0;i<24;i++) cells += '<div></div>';
+    return `<div class="pat-check">${cells}</div>`;
+  }
+  if(pattern==='bars'){
+    let bars='';
+    const heights=[40,70,30,90,55,80,35,65,45,75,25,60];
+    heights.forEach(h=>bars+=`<span style="height:${h}%"></span>`);
+    return `<div class="pat-bars">${bars}</div>`;
+  }
+  if(pattern==='dots'){
+    let dots=''; for(let i=0;i<30;i++) dots+='<i></i>';
+    return `<div class="pat-dots">${dots}</div>`;
+  }
+  if(pattern==='rings'){
+    let rings='';
+    const colors=['var(--violet)','var(--cream)','var(--ink)','var(--violet)','var(--cream)'];
+    const sizes=[150,120,90,60,30];
+    sizes.forEach((s,i)=>{
+      rings+=`<div class="ring" style="width:${s}px;height:${s}px;background:${colors[i]};"></div>`;
+    });
+    return `<div class="pat-rings">${rings}</div>`;
+  }
+  if(pattern==='half'){
+    return `<div class="pat-half"></div>`;
+  }
+  if(pattern==='mono'){
+    return `<div class="pat-mono">$ voxweb --status<br>&gt; answering calls...<br>&gt; 0 missed today<br>&gt; leads qualified: 14<br>&gt; uptime: 99.98%<br>&gt; _</div>`;
+  }
+  return '';
+}
+
+function render(){
+  stage.querySelectorAll('.card').forEach(c=>c.remove());
+  projects.forEach((p, i)=>{
+    const card = document.createElement('div');
+    card.className = 'card' + (i===active ? ' active' : '');
+    card.style.top = p.top + 'px';
+    card.style.left = p.left + 'px';
+    card.style.zIndex = i===active ? 50 : (10+i);
+    card.innerHTML = `
+      <div class="badge">№ ${p.n}</div>
+      <div class="art">${artHTML(p.pattern)}</div>
+      <div class="footer">
+        <span class="t">${p.title}</span>
+        <span class="y">${p.year}</span>
+      </div>
+    `;
+    card.addEventListener('click', ()=>{ active = i; render(); renderIndex(); });
+    stage.appendChild(card);
+  });
+  fileLabel.textContent = `FILE 0${active+1}/06 · HELIX VIEW`;
+}
+
+function renderIndex(){
+  indexList.innerHTML = '';
+  projects.forEach((p,i)=>{
+    const li = document.createElement('li');
+    if(i===active) li.className='active';
+    li.innerHTML = `<span class="num">${p.n}</span><span class="title">${p.title}</span><span class="yr">${p.year}</span>`;
+    li.addEventListener('click', ()=>{ active=i; render(); renderIndex(); });
+    indexList.appendChild(li);
+  });
+}
+
+render();
+renderIndex();
+
+const speed = document.getElementById('speed');
+const speedVal = document.getElementById('speedVal');
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+let timer = null;
+let playing = true;
+
+function tick(){
+  active = (active+1) % projects.length;
+  render(); renderIndex();
+}
+function startTimer(){
+  clearInterval(timer);
+  timer = setInterval(tick, speed.value*1000);
+}
+speed.addEventListener('input', ()=>{
+  speedVal.textContent = speed.value + 's';
+  if(playing) startTimer();
+});
+playBtn.addEventListener('click', ()=>{
+  playing = true;
+  playBtn.classList.add('on'); pauseBtn.classList.remove('on');
+  startTimer();
+});
+pauseBtn.addEventListener('click', ()=>{
+  playing = false;
+  pauseBtn.classList.add('on'); playBtn.classList.remove('on');
+  clearInterval(timer);
+});
+startTimer();
+</script>
+
+</body>
+</html>
